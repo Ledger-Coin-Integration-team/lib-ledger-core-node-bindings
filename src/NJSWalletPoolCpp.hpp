@@ -26,6 +26,7 @@
 #include "NJSLogPrinter.hpp"
 #include "NJSLoggerCpp.hpp"
 #include "NJSPathResolver.hpp"
+#include "NJSPreferencesBackendCpp.hpp"
 #include "NJSPreferencesCpp.hpp"
 #include "NJSRandomNumberGenerator.hpp"
 #include "NJSThreadDispatcher.hpp"

@@ -12,9 +12,9 @@ using namespace std;
 NAN_METHOD(NJSWalletPool::newInstance) {
 
     //Check if method called with right number of arguments
-    if(info.Length() != 10)
+    if(info.Length() != 12)
     {
-        return Nan::ThrowError("NJSWalletPool::newInstance needs 10 arguments");
+        return Nan::ThrowError("NJSWalletPool::newInstance needs 12 arguments");
     }
 
     //Check if parameters have correct types
@@ -54,15 +54,29 @@ NAN_METHOD(NJSWalletPool::newInstance) {
         return Nan::ThrowError("NodeJs Object to NJSDynamicObject failed");
     }
 
+    Local<Object> njs_arg_10 = info[10]->ToObject(Nan::GetCurrentContext()).ToLocalChecked();
+    auto arg_10 = djinni::js::ObjectWrapper<ledger::core::api::PreferencesBackend>::Unwrap(njs_arg_10);
+    if(!arg_10)
+    {
+        return Nan::ThrowError("NodeJs Object to NJSPreferencesBackend failed");
+    }
 
-    auto result = ledger::core::api::WalletPool::newInstance(arg_0,arg_1,arg_2,arg_3,arg_4,arg_5,arg_6,arg_7,arg_8,arg_9);
+    Local<Object> njs_arg_11 = info[11]->ToObject(Nan::GetCurrentContext()).ToLocalChecked();
+    auto arg_11 = djinni::js::ObjectWrapper<ledger::core::api::PreferencesBackend>::Unwrap(njs_arg_11);
+    if(!arg_11)
+    {
+        return Nan::ThrowError("NodeJs Object to NJSPreferencesBackend failed");
+    }
+
+
+    auto result = ledger::core::api::WalletPool::newInstance(arg_0,arg_1,arg_2,arg_3,arg_4,arg_5,arg_6,arg_7,arg_8,arg_9,arg_10,arg_11);
 
     //Wrap result in node object
-    auto arg_10 = NJSWalletPool::wrap(result);
+    auto arg_12 = NJSWalletPool::wrap(result);
 
 
     //Return result
-    info.GetReturnValue().Set(arg_10);
+    info.GetReturnValue().Set(arg_12);
 }
 NAN_METHOD(NJSWalletPool::getLogger) {
 
@@ -1007,7 +1021,7 @@ NAN_METHOD(NJSWalletPool::New) {
     }
 
     //Check if NJSWalletPool::New called with right number of arguments
-    if(info.Length() != 10)
+    if(info.Length() != 12)
     {
         return Nan::ThrowError("NJSWalletPool::New needs same number of arguments as ledger::core::api::WalletPool::newInstance method");
     }
@@ -1049,9 +1063,23 @@ NAN_METHOD(NJSWalletPool::New) {
         return Nan::ThrowError("NodeJs Object to NJSDynamicObject failed");
     }
 
+    Local<Object> njs_arg_10 = info[10]->ToObject(Nan::GetCurrentContext()).ToLocalChecked();
+    auto arg_10 = djinni::js::ObjectWrapper<ledger::core::api::PreferencesBackend>::Unwrap(njs_arg_10);
+    if(!arg_10)
+    {
+        return Nan::ThrowError("NodeJs Object to NJSPreferencesBackend failed");
+    }
+
+    Local<Object> njs_arg_11 = info[11]->ToObject(Nan::GetCurrentContext()).ToLocalChecked();
+    auto arg_11 = djinni::js::ObjectWrapper<ledger::core::api::PreferencesBackend>::Unwrap(njs_arg_11);
+    if(!arg_11)
+    {
+        return Nan::ThrowError("NodeJs Object to NJSPreferencesBackend failed");
+    }
+
 
     //Call factory
-    auto cpp_instance = ledger::core::api::WalletPool::newInstance(arg_0,arg_1,arg_2,arg_3,arg_4,arg_5,arg_6,arg_7,arg_8,arg_9);
+    auto cpp_instance = ledger::core::api::WalletPool::newInstance(arg_0,arg_1,arg_2,arg_3,arg_4,arg_5,arg_6,arg_7,arg_8,arg_9,arg_10,arg_11);
     djinni::js::ObjectWrapper<ledger::core::api::WalletPool>::Wrap(cpp_instance, info.This());
     info.GetReturnValue().Set(info.This());
 }
